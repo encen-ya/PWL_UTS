@@ -2,45 +2,67 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['name', 'email', 'password'])]
-#[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
-
     use HasFactory, Notifiable;
+
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
+
     protected $fillable = [
         'level_id',
         'username',
         'nama',
         'password',
     ];
+
     protected $hidden = [
         'password',
+        'remember_token',
     ];
-    public function level()
+
+    public function getFilamentName(): string
+    {
+        return (string) $this->nama;
+    }
+
+    public function getNameAttribute(): string
+    {
+        return (string) $this->nama;
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
+
+
+    public function level(): BelongsTo
     {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
     }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    public function stoks(): HasMany
+    {
+        return $this->hasMany(StokModel::class, 'user_id', 'user_id');
+    }
+
+    public function penjualans(): HasMany
+    {
+        return $this->hasMany(PenjualanModel::class, 'user_id', 'user_id');
+    }
+
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
