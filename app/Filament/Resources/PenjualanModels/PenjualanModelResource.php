@@ -22,6 +22,12 @@ class PenjualanModelResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $navigationLabel = 'Penjualan';
+
+    protected static ?string $pluralModelLabel = 'Penjualan';
+
+    protected static ?string $modelLabel = 'Penjualan';
+
     public static function form(Schema $schema): Schema
     {
         return PenjualanModelForm::configure($schema);

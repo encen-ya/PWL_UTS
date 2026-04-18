@@ -22,6 +22,12 @@ class BarangModelResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $navigationLabel = 'Barang';
+
+    protected static ?string $pluralModelLabel = 'Barang';
+
+    protected static ?string $modelLabel = 'Barang';
+
     public static function form(Schema $schema): Schema
     {
         return BarangModelForm::configure($schema);
