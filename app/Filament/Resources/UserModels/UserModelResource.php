@@ -7,7 +7,7 @@ use App\Filament\Resources\UserModels\Pages\EditUserModel;
 use App\Filament\Resources\UserModels\Pages\ListUserModels;
 use App\Filament\Resources\UserModels\Schemas\UserModelForm;
 use App\Filament\Resources\UserModels\Tables\UserModelsTable;
-use App\Models\UserModel;
+use App\Models\User;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -16,7 +16,7 @@ use Filament\Tables\Table;
 
 class UserModelResource extends Resource
 {
-    protected static ?string $model = UserModel::class;
+    protected static ?string $model = User::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 

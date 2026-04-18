@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
 
 class UserModelsTable
 {
@@ -13,7 +14,17 @@ class UserModelsTable
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('user_id')
+                ->label('ID'),
+
+            TextColumn::make('level.level_id')
+                ->label('Level'),
+
+            TextColumn::make('username')
+                ->label('Username'),
+
+            TextColumn::make('nama')
+                ->label('Nama'),
             ])
             ->filters([
                 //
