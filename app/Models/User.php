@@ -14,8 +14,23 @@ use Illuminate\Notifications\Notifiable;
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
+
     use HasFactory, Notifiable;
+    protected $table = 'm_user';
+    protected $primaryKey = 'user_id';
+    protected $fillable = [
+        'level_id',
+        'username',
+        'nama',
+        'password',
+    ];
+    protected $hidden = [
+        'password',
+    ];
+    public function level()
+    {
+        return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+    }
 
     /**
      * Get the attributes that should be cast.
